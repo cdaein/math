@@ -17,5 +17,13 @@
   "devDependencies": {
     "jest": "^29.1.2",
     "ts-jest": "^29.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdaein/math.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cdaein/math/issues"
+  },
+  "homepage": "https://github.com/cdaein/math#readme"
 }
