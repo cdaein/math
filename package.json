@@ -1,0 +1,21 @@
+{
+  "name": "@daeinc/math",
+  "version": "0.1.0",
+  "description": "Math utilities",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --watch",
+    "watch": "tsc --watch",
+    "build": "tsc --build --clean && tsc --build"
+  },
+  "author": "Daeinc",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "ts-jest": "^29.0.3"
+  }
+}
