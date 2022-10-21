@@ -1,6 +1,6 @@
 # math utilities
 
-For personal use. Breakcing changes expected.
+For personal consumption. Breaking changes expected.
 
 ## License
 
