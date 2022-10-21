@@ -7,7 +7,7 @@ import {
   snapToArray,
   reflect,
   mod,
-  modf,
+  modF,
   modIncl,
   distSq,
   dist,
@@ -130,11 +130,11 @@ describe("mod()", () => {
   });
 });
 
-describe("modf():", () => {
+describe("modF():", () => {
   test("handles float modulo operations", () => {
-    expect(modf(1.2, 1, 6)).toEqual(0.2);
-    expect(modf(29 * 0.02, 1, 6)).toEqual(0.58);
-    expect(modf(6.6, 1.1, 6)).toEqual(0);
+    expect(modF(1.2, 1, 6)).toEqual(0.2);
+    expect(modF(29 * 0.02, 1, 6)).toEqual(0.58);
+    expect(modF(6.6, 1.1, 6)).toEqual(0);
   });
 });
 

@@ -1,30 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dist = exports.distSq = exports.modIncl = exports.modf = exports.mod = exports.reflect = exports.snapToArray = exports.snapBy = exports.roundF = exports.floorF = exports.constrain = exports.clamp = exports.map = exports.lerp = exports.mix = void 0;
-/**
- * linear interpolation (=lerp)
- * @param a start value
- * @param b stop value
- * @param t amount 0..1
- * @returns
- */
-const mix = (a, b, t) => a * (1 - t) + b * t;
-exports.mix = mix;
-/**
- * alias for mix()
- */
-exports.lerp = exports.mix;
-/**
- *
- * @param val
- * @param s
- * @param e
- * @param ns
- * @param ne
- * @returns
- */
-const map = (val, s, e, ns, ne) => ns + ((val - s) / (e - s)) * (ne - ns);
-exports.map = map;
+exports.snapToArray = exports.snapBy = exports.roundF = exports.reflect = exports.modIncl = exports.modF = exports.mod = exports.lerp = exports.mix = exports.map = exports.floorF = exports.distSq = exports.dist = exports.constrain = exports.clamp = void 0;
 /**
  * clamp values between min and max (=constrain)
  * @param val
@@ -38,6 +14,30 @@ exports.clamp = clamp;
  * alias for clamp()
  */
 exports.constrain = exports.clamp;
+/**
+ *
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @returns
+ */
+const dist = (x1, y1, x2, y2) => {
+    return Math.sqrt((0, exports.distSq)(x1, y1, x2, y2));
+};
+exports.dist = dist;
+/**
+ * returns squared distance
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @returns
+ */
+const distSq = (x1, y1, x2, y2) => {
+    return (x2 - x1) ** 2 + (y2 - y1) ** 2;
+};
+exports.distSq = distSq;
 /**
  *
  * @param n number
@@ -58,6 +58,77 @@ const floorF = (n, digit) => {
     return Math.floor(n * factor) / factor;
 };
 exports.floorF = floorF;
+/**
+ *
+ * @param val
+ * @param s
+ * @param e
+ * @param ns
+ * @param ne
+ * @returns
+ */
+const map = (val, s, e, ns, ne) => ns + ((val - s) / (e - s)) * (ne - ns);
+exports.map = map;
+/**
+ * linear interpolation (=lerp)
+ * @param a start value
+ * @param b stop value
+ * @param t amount 0..1
+ * @returns
+ */
+const mix = (a, b, t) => a * (1 - t) + b * t;
+exports.mix = mix;
+/**
+ * alias for mix()
+ */
+exports.lerp = exports.mix;
+/**
+ * NOTE: it may not be accurate with non-integer numbers.
+ * @param n
+ * @param max
+ * @returns
+ */
+const mod = (n, max) => {
+    return ((n % max) + max) % max;
+};
+exports.mod = mod;
+/**
+ * modulo(%) for float numbers up to precision digit.
+ * @param n original number
+ * @param max modulo
+ * @param precision float precision digits. defaults to 6
+ * @returns
+ */
+const modF = (n, max, precision = 6) => {
+    const mlt = Math.pow(10, precision); // multiplier to make it integer
+    const ni = Math.floor(n * mlt);
+    const maxi = Math.floor(max * mlt);
+    return (((ni % maxi) + maxi) % maxi) / mlt;
+};
+exports.modF = modF;
+/**
+ * inclusive modulo. modIncl(1, 3) will include 3.
+ * can handle negative number and returns positive value
+ * @param n number to update
+ * @param max number to divide with
+ * @returns number from modulo op. within range 0..max (inclusive)
+ */
+const modIncl = (n, max) => {
+    if (max < 0)
+        throw new Error("modIncl(): 2nd arg must be >= 0");
+    return n === max ? max : ((n % max) + max) % max;
+};
+exports.modIncl = modIncl;
+/**
+ * reflect a scalar value along axis. good for creating reflected version.
+ * @param num number to flip
+ * @param axis value to reflect against
+ * @returns
+ */
+const reflect = (num, axis) => {
+    return axis - (num - axis);
+};
+exports.reflect = reflect;
 /**
  * good for drawing shapes to include the maximum value (round up)
  * @param n float number
@@ -104,75 +175,4 @@ const snapToArray = (n, snapArr) => {
     throw new Error("snapToArray(): did not meet any condition");
 };
 exports.snapToArray = snapToArray;
-/**
- * reflect a scalar value along axis. good for creating reflected version.
- * @param num number to flip
- * @param axis value to reflect against
- * @returns
- */
-const reflect = (num, axis) => {
-    return axis - (num - axis);
-};
-exports.reflect = reflect;
-/**
- * NOTE: it may not be accurate with non-integer numbers.
- * @param n
- * @param max
- * @returns
- */
-const mod = (n, max) => {
-    return ((n % max) + max) % max;
-};
-exports.mod = mod;
-/**
- * modulo(%) for float numbers up to precision digit.
- * @param n original number
- * @param max modulo
- * @param precision float precision digits. defaults to 6
- * @returns
- */
-const modf = (n, max, precision = 6) => {
-    const mlt = Math.pow(10, precision); // multiplier to make it integer
-    const ni = Math.floor(n * mlt);
-    const maxi = Math.floor(max * mlt);
-    return (((ni % maxi) + maxi) % maxi) / mlt;
-};
-exports.modf = modf;
-/**
- * inclusive modulo. modIncl(1, 3) will include 3.
- * can handle negative number and returns positive value
- * @param n number to update
- * @param max number to divide with
- * @returns number from modulo op. within range 0..max (inclusive)
- */
-const modIncl = (n, max) => {
-    if (max < 0)
-        throw new Error("modIncl(): 2nd arg must be >= 0");
-    return n === max ? max : ((n % max) + max) % max;
-};
-exports.modIncl = modIncl;
-/**
- * returns squared distance
- * @param x1
- * @param y1
- * @param x2
- * @param y2
- * @returns
- */
-const distSq = (x1, y1, x2, y2) => {
-    return (x2 - x1) ** 2 + (y2 - y1) ** 2;
-};
-exports.distSq = distSq;
-/**
- *
- * @param x1
- * @param y1
- * @param x2
- * @param y2
- * @returns
- */
-const dist = (x1, y1, x2, y2) => {
-    return Math.sqrt((0, exports.distSq)(x1, y1, x2, y2));
-};
-exports.dist = dist;
 //# sourceMappingURL=index.js.map
