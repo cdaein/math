@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.snapToArray = exports.snapBy = exports.roundF = exports.reflect = exports.modIncl = exports.modF = exports.mod = exports.lerp = exports.mix = exports.map = exports.floorF = exports.distSq = exports.dist = exports.constrain = exports.clamp = void 0;
+exports.snapToArray = exports.snapBy = exports.roundF = exports.reflect = exports.polarToCartesian = exports.modIncl = exports.modF = exports.mod = exports.lerp = exports.mix = exports.map = exports.floorF = exports.distSq = exports.dist = exports.constrain = exports.clamp = void 0;
 /**
  * clamp values between min and max (=constrain)
  * @param val
@@ -106,6 +106,11 @@ const modF = (n, max, precision = 6) => {
     return (((ni % maxi) + maxi) % maxi) / mlt;
 };
 exports.modF = modF;
+// export const floorF = (n: number, digit: number): number => {
+//   n = parseFloat(n.toFixed(digit));
+//   const factor = Math.pow(10, digit);
+//   return Math.floor(n * factor) / factor;
+// };
 /**
  * inclusive modulo. modIncl(1, 3) will include 3.
  * can handle negative number and returns positive value
@@ -119,6 +124,16 @@ const modIncl = (n, max) => {
     return n === max ? max : ((n % max) + max) % max;
 };
 exports.modIncl = modIncl;
+/**
+ * converts polar coordinate to cartesian. to update center, result.map((v,i)=> v + center[i])
+ * @param radius
+ * @param angle in radians
+ * @returns
+ */
+const polarToCartesian = (radius, angle) => {
+    return [Math.cos(angle) * radius, Math.sin(angle) * radius];
+};
+exports.polarToCartesian = polarToCartesian;
 /**
  * reflect a scalar value along axis. good for creating reflected version.
  * @param num number to flip

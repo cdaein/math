@@ -114,6 +114,12 @@ export const modF = (n: number, max: number, precision = 6): number => {
   return (((ni % maxi) + maxi) % maxi) / mlt;
 };
 
+// export const floorF = (n: number, digit: number): number => {
+//   n = parseFloat(n.toFixed(digit));
+//   const factor = Math.pow(10, digit);
+//   return Math.floor(n * factor) / factor;
+// };
+
 /**
  * inclusive modulo. modIncl(1, 3) will include 3.
  * can handle negative number and returns positive value
@@ -124,6 +130,16 @@ export const modF = (n: number, max: number, precision = 6): number => {
 export const modIncl = (n: number, max: number): number => {
   if (max < 0) throw new Error("modIncl(): 2nd arg must be >= 0");
   return n === max ? max : ((n % max) + max) % max;
+};
+
+/**
+ * converts polar coordinate to cartesian. to update center, result.map((v,i)=> v + center[i])
+ * @param radius
+ * @param angle in radians
+ * @returns
+ */
+export const polarToCartesian = (radius: number, angle: number) => {
+  return [Math.cos(angle) * radius, Math.sin(angle) * radius];
 };
 
 /**

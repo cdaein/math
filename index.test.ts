@@ -1,17 +1,38 @@
 import { describe, expect, test } from "@jest/globals";
 import {
+  distSq,
+  dist,
   mix,
-  floorF,
-  roundF,
-  snapBy,
-  snapToArray,
-  reflect,
   mod,
   modF,
   modIncl,
-  distSq,
-  dist,
+  floorF,
+  polarToCartesian,
+  reflect,
+  roundF,
+  snapBy,
+  snapToArray,
 } from "./index";
+
+describe("distSq()", () => {
+  test("returns squared distance value", () => {
+    expect(distSq(3, 0, 0, 4)).toEqual(25);
+  });
+});
+
+describe("dist()", () => {
+  test("returns distance value", () => {
+    expect(dist(3, 0, 0, 4)).toEqual(5);
+  });
+});
+
+describe("floorF():", () => {
+  test("floor down floats", () => {
+    expect(floorF(2.8 * 7, 5)).toBe(19.6);
+    expect(floorF(2.8 * 7, 3)).toBe(19.6);
+    expect(floorF(2.8 * 7, 1)).toBe(19.6);
+  });
+});
 
 describe("mix():", () => {
   test("handle different amt values", () => {
@@ -23,11 +44,67 @@ describe("mix():", () => {
   });
 });
 
-describe("floorF():", () => {
-  test("floor down floats", () => {
-    expect(floorF(2.8 * 7, 5)).toBe(19.6);
-    expect(floorF(2.8 * 7, 3)).toBe(19.6);
-    expect(floorF(2.8 * 7, 1)).toBe(19.6);
+describe("mod()", () => {
+  test("handles typical modulo operations", () => {
+    // expect(mod(0, 0)).toBe(0);
+    expect(mod(0, 3)).toBe(0);
+    expect(mod(1, 3)).toBe(1);
+    expect(mod(2, 3)).toBe(2);
+  });
+  test("wraps around if greater than max value", () => {
+    expect(mod(5, 2)).toBe(1);
+    expect(mod(5, 4)).toBe(1);
+  });
+  test("returns positive value on negative input", () => {
+    expect(mod(-1, 3)).toBe(2);
+    expect(mod(-2, 3)).toBe(1);
+    expect(mod(-3, 3)).toBe(0);
+    expect(mod(-4, 3)).toBe(2);
+    expect(mod(-5, 3)).toBe(1);
+  });
+});
+
+describe("modF():", () => {
+  test("handles float modulo operations", () => {
+    expect(modF(1.2, 1, 6)).toEqual(0.2);
+    expect(modF(29 * 0.02, 1, 6)).toEqual(0.58);
+    expect(modF(6.6, 1.1, 6)).toEqual(0);
+  });
+});
+
+describe("modIncl()", () => {
+  test("throws error on negative modulo value", () => {
+    expect(() => modIncl(3, -3)).toThrow("modIncl(): 2nd arg must be >= 0");
+  });
+  test("handles typical modulo operations", () => {
+    expect(modIncl(0, 0)).toBe(0); // interesting case
+    expect(modIncl(0, 3)).toBe(0);
+    expect(modIncl(1, 3)).toBe(1);
+    expect(modIncl(2, 3)).toBe(2);
+  });
+  test("returns max value (inclusive)", () => {
+    expect(modIncl(3, 3)).toBe(3);
+    // expect(modIncl(6, 3)).toBe(3);
+    // expect(modIncl(3, 1)).toBe(1);
+    expect(modIncl(3.2, 3.2)).toBe(3.2);
+    // expect(modIncl(6.4, 3.2)).toBe(3.2);
+  });
+  test("wraps around if greater than max value", () => {
+    expect(modIncl(5, 2)).toBe(1);
+    expect(modIncl(5, 4)).toBe(1);
+  });
+  test("returns positive value on negative input", () => {
+    expect(modIncl(-1, 3)).toBe(2);
+    expect(modIncl(-2, 3)).toBe(1);
+    expect(modIncl(-3, 3)).toBe(0);
+    expect(modIncl(-4, 3)).toBe(2);
+    expect(modIncl(-5, 3)).toBe(1);
+  });
+});
+
+describe("polarToCartesian()", () => {
+  test("", () => {
+    // TODO
   });
 });
 
@@ -107,75 +184,5 @@ describe("reflect():", () => {
     expect(reflect(8, 12)).toBe(16);
     expect(reflect(-3, 12)).toBe(27);
     expect(reflect(14, 12)).toBe(10);
-  });
-});
-
-describe("mod()", () => {
-  test("handles typical modulo operations", () => {
-    // expect(mod(0, 0)).toBe(0);
-    expect(mod(0, 3)).toBe(0);
-    expect(mod(1, 3)).toBe(1);
-    expect(mod(2, 3)).toBe(2);
-  });
-  test("wraps around if greater than max value", () => {
-    expect(mod(5, 2)).toBe(1);
-    expect(mod(5, 4)).toBe(1);
-  });
-  test("returns positive value on negative input", () => {
-    expect(mod(-1, 3)).toBe(2);
-    expect(mod(-2, 3)).toBe(1);
-    expect(mod(-3, 3)).toBe(0);
-    expect(mod(-4, 3)).toBe(2);
-    expect(mod(-5, 3)).toBe(1);
-  });
-});
-
-describe("modF():", () => {
-  test("handles float modulo operations", () => {
-    expect(modF(1.2, 1, 6)).toEqual(0.2);
-    expect(modF(29 * 0.02, 1, 6)).toEqual(0.58);
-    expect(modF(6.6, 1.1, 6)).toEqual(0);
-  });
-});
-
-describe("modIncl()", () => {
-  test("throws error on negative modulo value", () => {
-    expect(() => modIncl(3, -3)).toThrow("modIncl(): 2nd arg must be >= 0");
-  });
-  test("handles typical modulo operations", () => {
-    expect(modIncl(0, 0)).toBe(0); // interesting case
-    expect(modIncl(0, 3)).toBe(0);
-    expect(modIncl(1, 3)).toBe(1);
-    expect(modIncl(2, 3)).toBe(2);
-  });
-  test("returns max value (inclusive)", () => {
-    expect(modIncl(3, 3)).toBe(3);
-    // expect(modIncl(6, 3)).toBe(3);
-    // expect(modIncl(3, 1)).toBe(1);
-    expect(modIncl(3.2, 3.2)).toBe(3.2);
-    // expect(modIncl(6.4, 3.2)).toBe(3.2);
-  });
-  test("wraps around if greater than max value", () => {
-    expect(modIncl(5, 2)).toBe(1);
-    expect(modIncl(5, 4)).toBe(1);
-  });
-  test("returns positive value on negative input", () => {
-    expect(modIncl(-1, 3)).toBe(2);
-    expect(modIncl(-2, 3)).toBe(1);
-    expect(modIncl(-3, 3)).toBe(0);
-    expect(modIncl(-4, 3)).toBe(2);
-    expect(modIncl(-5, 3)).toBe(1);
-  });
-});
-
-describe("distSq()", () => {
-  test("returns squared distance value", () => {
-    expect(distSq(3, 0, 0, 4)).toEqual(25);
-  });
-});
-
-describe("dist()", () => {
-  test("returns distance value", () => {
-    expect(dist(3, 0, 0, 4)).toEqual(5);
   });
 });

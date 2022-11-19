@@ -87,6 +87,13 @@ export declare const modF: (n: number, max: number, precision?: number) => numbe
  */
 export declare const modIncl: (n: number, max: number) => number;
 /**
+ * converts polar coordinate to cartesian. to update center, result.map((v,i)=> v + center[i])
+ * @param radius
+ * @param angle in radians
+ * @returns
+ */
+export declare const polarToCartesian: (radius: number, angle: number) => number[];
+/**
  * reflect a scalar value along axis. good for creating reflected version.
  * @param num number to flip
  * @param axis value to reflect against
