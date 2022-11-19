@@ -1,6 +1,6 @@
 {
   "name": "@daeinc/math",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Math utilities",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
