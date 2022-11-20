@@ -1,5 +1,9 @@
 # Changelog
 
+## `0.4.0`
+
+- added constants `PI` and `TWO_PI`.
+
 ## `0.3.0`
 
 - added `polarToCartesian()`

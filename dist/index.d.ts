@@ -1,3 +1,5 @@
+export declare const PI: number;
+export declare const TWO_PI: number;
 /**
  * clamp values between min and max (=constrain)
  * @param val

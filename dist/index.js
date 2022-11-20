@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.snapToArray = exports.snapBy = exports.roundF = exports.reflect = exports.polarToCartesian = exports.modIncl = exports.modF = exports.mod = exports.lerp = exports.mix = exports.map = exports.floorF = exports.distSq = exports.dist = exports.constrain = exports.clamp = void 0;
+exports.snapToArray = exports.snapBy = exports.roundF = exports.reflect = exports.polarToCartesian = exports.modIncl = exports.modF = exports.mod = exports.lerp = exports.mix = exports.map = exports.floorF = exports.distSq = exports.dist = exports.constrain = exports.clamp = exports.TWO_PI = exports.PI = void 0;
+// frequently used constants
+exports.PI = Math.PI;
+exports.TWO_PI = Math.PI * 2;
 /**
  * clamp values between min and max (=constrain)
  * @param val

@@ -1,3 +1,7 @@
+// frequently used constants
+export const PI = Math.PI;
+export const TWO_PI = Math.PI * 2;
+
 /**
  * clamp values between min and max (=constrain)
  * @param val
