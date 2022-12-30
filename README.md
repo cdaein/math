@@ -126,7 +126,7 @@ result.map((v, i) => v + center[i]);
 const reflect: (num: number, axis: number) => number;
 ```
 
-Rreflect a scalar value along axis.
+Rreflect a scalar value along axis. If you want to reflect a point in 2d space, you can use [`reflectPoint()`](https://github.com/cdaein/geom#reflectpoint) from [`@daeinc/geom`](https://github.com/cdaein/geom).
 
 ### roundF
 
