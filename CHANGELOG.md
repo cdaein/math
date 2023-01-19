@@ -1,5 +1,9 @@
 # Changelog
 
+## `0.5.0`
+
+- updateed build settings to use `esnext`.
+
 ## `0.4.0`
 
 - added constants `PI` and `TWO_PI`.
