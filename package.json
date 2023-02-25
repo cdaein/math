@@ -2,8 +2,9 @@
   "name": "@daeinc/math",
   "version": "0.5.0",
   "description": "Math utilities",
-  "types": "./dist/index.d.ts",
+  "type": "module",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "/dist"
   ],
@@ -11,15 +12,15 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --watch",
+    "test": "vitest",
     "watch": "tsc --watch",
-    "build": "tsc --build --clean && tsc --build"
+    "build": "tsc --noemit && tsup"
   },
   "author": "Daeinc",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^29.1.2",
-    "ts-jest": "^29.0.3"
+    "tsup": "^6.6.3",
+    "vitest": "^0.28.5"
   },
   "repository": {
     "type": "git",
