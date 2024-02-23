@@ -3,13 +3,13 @@ export const PI = Math.PI;
 export const TWO_PI = Math.PI * 2;
 
 /**
- * clamp values between min and max (=constrain)
+ * Clamp values between min and max (= `constrain`)
  * @param val
  * @param min
  * @param max
  * @returns
  */
-export const clamp = (val: number, min: number, max: number): number =>
+export const clamp = (val: number, min: number, max: number) =>
   Math.min(Math.max(val, min), max);
 
 /**
@@ -30,7 +30,8 @@ export const dist = (x1: number, y1: number, x2: number, y2: number) => {
 };
 
 /**
- * returns squared distance
+ * Get squared distance between two points
+ *
  * @param x1
  * @param y1
  * @param x2
@@ -51,24 +52,25 @@ export const distSq = (x1: number, y1: number, x2: number, y2: number) => {
 //   n + map(Math.random(), 0, 1, -1, 1) * amp;
 
 /**
- * drop decimals after digit. good for array index (floor)
+ * Drop decimals after digit. Good for array index (floor)
  * @param n float number
  * @param digit how many decimal digits to keep
  * @returns
  */
-export const floorF = (n: number, digit: number): number => {
+export const floorF = (n: number, digit: number) => {
   n = parseFloat(n.toFixed(digit));
   const factor = Math.pow(10, digit);
   return Math.floor(n * factor) / factor;
 };
 
 /**
+ * Map value from the original range to a new range
  *
- * @param val
- * @param s
- * @param e
- * @param ns
- * @param ne
+ * @param val - value to transform
+ * @param s - start value of original range
+ * @param e - end value of original range
+ * @param ns - start value of new range
+ * @param ne - end value of new range
  * @returns
  */
 export const map = (
@@ -76,26 +78,31 @@ export const map = (
   s: number,
   e: number,
   ns: number,
-  ne: number
-): number => ns + ((val - s) / (e - s)) * (ne - ns);
+  ne: number,
+) => ns + ((val - s) / (e - s)) * (ne - ns);
 
 /**
- * linear interpolation (=lerp)
- * @param a start value
- * @param b stop value
- * @param t amount 0..1
+ * Linear interpolation (= `lerp`)
+ *
+ * @param a - start value
+ * @param b - stop value
+ * @param t - amount `0..1`
  * @returns
  */
-export const mix = (a: number, b: number, t: number): number =>
-  a * (1 - t) + b * t;
+export const mix = (a: number, b: number, t: number) => a * (1 - t) + b * t;
 
 /**
- * alias for mix()
+ * Alias for mix()
  */
 export const lerp = mix;
 
 /**
- * NOTE: it may not be accurate with non-integer numbers.
+ * Can handle negative number and returns positive value
+ * Use `modF()` for non-integer values.
+ *
+ * @example
+ * mod(-1, 3) // returns 2
+ *
  * @param n
  * @param max
  * @returns
@@ -105,7 +112,11 @@ export const mod = (n: number, max: number): number => {
 };
 
 /**
- * modulo(%) for float numbers up to precision digit.
+ * Modulo(%) for float numbers up to precision digit.
+ *
+ * @example
+ * modF(1.2, 1, 6); // returns 0.2
+ *
  * @param n original number
  * @param max modulo
  * @param precision float precision digits. defaults to 6
@@ -125,8 +136,13 @@ export const modF = (n: number, max: number, precision = 6): number => {
 // };
 
 /**
- * inclusive modulo. modIncl(1, 3) will include 3.
- * can handle negative number and returns positive value
+ * Inclusive modulo. modIncl(1, 3) will include 3. This only works with positive `n`.
+ * Can handle negative number and returns positive value
+ *
+ * @example
+ * modIncl(3, 3) // returns 3
+ * modIncl(-3, 3) // returns 0
+ *
  * @param n number to update
  * @param max number to divide with
  * @returns number from modulo op. within range 0..max (inclusive)
@@ -137,9 +153,10 @@ export const modIncl = (n: number, max: number): number => {
 };
 
 /**
- * converts polar coordinate to cartesian. to update center, result.map((v,i)=> v + center[i])
+ * Converts polar coordinate to cartesian. to update center, result.map((v,i)=> v + center[i])
+ *
  * @param radius
- * @param angle in radians
+ * @param angle - in radians
  * @returns
  */
 export const polarToCartesian = (radius: number, angle: number) => {
@@ -147,46 +164,58 @@ export const polarToCartesian = (radius: number, angle: number) => {
 };
 
 /**
- * reflect a scalar value along axis. good for creating reflected version.
- * @param num number to flip
- * @param axis value to reflect against
+ * Reflect a scalar value along axis. good for creating reflected version.
+ *
+ * @example
+ * reflect(3.2, 0); // -3.2
+ *
+ * @param num - number to flip
+ * @param axis - value to reflect against
  * @returns
  */
-export const reflect = (num: number, axis: number): number => {
+export const reflect = (num: number, axis: number) => {
   return axis - (num - axis);
 };
 
 /**
- * good for drawing shapes to include the maximum value (round up)
+ * Good for drawing shapes to include the maximum value (round up)
+ *
  * @param n float number
  * @param digit how many float digits to keep
  * @returns
  */
-export const roundF = (n: number, digit: number): number => {
+export const roundF = (n: number, digit: number) => {
   const factor = Math.pow(10, digit);
   return Math.round(n * factor) / factor;
 };
 
 /**
- * snap value to increment
- * @param n original number
- * @param inc increment to snap to.
+ * Snap value to increment
+ *
+ * @param n - original number
+ * @param inc - increment to snap to.
  * @returns
  *
  */
-export const snapBy = (n: number, inc: number): number => {
+export const snapBy = (n: number, inc: number) => {
   return Math.round(n / inc) * inc;
 };
 
 /**
- * snap to a value in array. whatever is closest to.
- * @param n original number
- * @param snapArr values to snap to
- * @returns {number | undefined}
+ * Snap to a value in array. whatever is closest to.
+ *
+ * @example
+ * snapToArray(3, [1.4, 1.5, 4.08]) // 4.08
+ * snapToArray(-100, [-10, 2, 40]) // -10
+ *
+ * @param n - original number
+ * @param snapArr - values to snap to
+ * @returns
  */
-export const snapToArray = (n: number, snapArr: number[]): number => {
+export const snapToArray = (n: number, snapArr: number[]) => {
   snapArr.sort((a, b) => a - b); // sort numbers in order
-  if (n <= snapArr[0]) return snapArr[0]; // if less than the smallest one
+  if (n <= snapArr[0])
+    return snapArr[0]; // if less than the smallest
   else if (n >= snapArr[snapArr.length - 1])
     return snapArr[snapArr.length - 1]; // if greater than the largest num
   else {
@@ -198,5 +227,6 @@ export const snapToArray = (n: number, snapArr: number[]): number => {
       }
     }
   }
-  throw new Error("snapToArray(): did not meet any condition");
+  // REVIEW: should remove it
+  throw new Error("could not snap to any value");
 };
