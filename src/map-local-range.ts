@@ -29,7 +29,7 @@ import { clamp, map } from ".";
  * const num = 20;
  * for (let i = 0; i <= num; i++) {
  *   // local t is lerped in 0..1 within buffer as playhead tranvels forward.
- *   let t = mapRange(i / num, 0.2, 0.2, playhead);
+ *   let t = mapLocalRange(i / num, 0.2, 0.2, playhead);
  *   // map t (0..1) to desired range (0 -> 1 -> 0)
  *   const h = keys.value(t);
  *   drawRect(
