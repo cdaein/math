@@ -12,7 +12,7 @@ import { clamp, map } from ".";
  *
  * from [230305-1-anim-t-overlap](2023/3-March/230305-1-anim-t-overlap) sketch
  *
- * @param t - Normalized local t 0..1. This is used to sample mapped value. It determines the density or resolution of values.
+ * @param t - Normalized local t 0..1. This is a sampling position of the mapped value within the range. It determines the density or resolution of values.
  * @param radius - Buffer radius on each side. To have different radius on each direction, pass `[back, front]`. (positive float value)
  * @param T - global T 0..1
  * @returns localized t value between 0..1
