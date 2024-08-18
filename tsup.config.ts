@@ -1,4 +1,7 @@
 import { defineConfig } from "tsup";
+import packageJson from "./package.json";
+
+const banner = `/*! ${packageJson.name}@${packageJson.version} by ${packageJson.author} - ${packageJson.license} */`;
 
 export default defineConfig([
   // npm module (no bundling)
@@ -10,6 +13,9 @@ export default defineConfig([
     sourcemap: true,
     clean: true,
     treeshake: true,
+    banner: {
+      js: banner,
+    },
   },
   // es6 (bundled)
   {
@@ -31,6 +37,9 @@ export default defineConfig([
       return {
         js: ".esm.js",
       };
+    },
+    banner: {
+      js: banner,
     },
     // noExternal: [/./],
   },
