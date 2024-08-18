@@ -12,6 +12,12 @@ then,
 import { modF, ... } from "@daeinc/math"
 ```
 
+## CDN
+
+```js
+import { modF, ... } from "https://cdn.jsdelivr.net/npm/@daeinc/math/dist/math.esm.js"
+```
+
 ## Functions
 
 ### clamp
@@ -62,7 +68,7 @@ const map: (
   s: number,
   e: number,
   ns: number,
-  ne: number
+  ne: number,
 ) => number;
 ```
 
